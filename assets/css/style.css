@@ -1,0 +1,177 @@
+/***** General style *****/
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1{
+  font-size: 48px;
+}
+
+h2{
+  font-size: 26px;
+  font-weight:normal;
+}
+
+h3{
+  font-size: 22px;
+}
+
+p{
+  font-size: 18px;
+}
+
+
+/* Section : Vocabulaire */
+#vocubulaire {
+  padding: 40px;
+  text-align: center;
+}
+
+#vocubulaire div{
+  margin-bottom: 40px;
+  padding-left: 100px;
+  padding-right: 100px;
+  overflow: hidden;
+}
+
+#vocubulaire h3{
+  text-align: left;
+}
+
+
+/* Section : Anglicisation */
+#anglicisation {
+  padding: 40px;
+  text-align: center;
+}
+
+/* Section : Régionalisme */
+#regionalisme {
+  padding: 40px;
+  text-align: center;
+}
+
+
+
+/* Transitions */
+@keyframes fadeIn {
+  0%   { 
+    opacity: 0;
+  }
+
+  100%   { 
+    opacity: 1; 
+  }
+}
+@-o-keyframes fadeIn {
+  0%   { 
+    opacity: 0;
+  }
+
+  100%   { 
+    opacity: 1; 
+  }
+}
+@-moz-keyframes fadeIn {
+  0%   { 
+    opacity: 0;
+  }
+
+  100%   { 
+    opacity: 1; 
+  }
+}
+@-webkit-keyframes fadeIn {
+  0%   { 
+    opacity: 0;
+  }
+
+  100%   { 
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0%   { 
+    opacity: 1;
+  }
+
+  100%   { 
+    opacity: 0; 
+  }
+}
+@-o-keyframes fadeOut {
+  0%   { 
+    opacity: 1;
+  }
+
+  100%   { 
+    opacity: 0; 
+  }
+}
+@-moz-keyframes fadeOut {
+  0%   { 
+    opacity: 1;
+  }
+
+  100%   { 
+    opacity: 0; 
+  }
+}
+@-webkit-keyframes fadeOut {
+  0%   { 
+    opacity: 1;
+  }
+
+  100%   { 
+    opacity: 0; 
+  }
+}
+
+.hidden{
+  display: none;
+}
+
+.fadeInClass{
+  opacity: 1;
+  display: block;
+  -webkit-animation: fadeIn 1s;
+  -moz-animation: fadeIn 1s;
+  -o-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+.fadeOutClass {
+  opacity: 0;
+  -webkit-animation: fadeOut 1s;
+  -moz-animation: fadeOut 1s;
+  -o-animation: fadeOut 1s;
+  animation: fadeOut 1s;
+}
+
+
+
+/***** Tooltip *****/
+.d3-tip {
+  line-height: 1;
+  padding: 12px;
+  border-radius: 2px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.d3-tip:after {
+  display: inline;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: -1px 0 0 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
