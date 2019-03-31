@@ -1,7 +1,0 @@
-nbr_words_checked,3500
-nbr_of_samples,8
-average,1164.0
-median,1144.0
-standard deviation,42.0
-max,1238
-min,1117
