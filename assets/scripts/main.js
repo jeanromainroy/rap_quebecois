@@ -8,7 +8,7 @@
       bottom: 150,
       left: 50
     };
-    var chartWidth = 1100 - chartMargin.left - chartMargin.right;
+    var chartWidth = 1300 - chartMargin.left - chartMargin.right;
     var chartHeight = 550 - chartMargin.top - chartMargin.bottom;
 
     /***** Échelles *****/
@@ -32,6 +32,10 @@
     /***** Chargement des données *****/
     d3.csv("assets/data/statistics.csv").then(function (data) {
 
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-20, 0]);
+
         /***** Prétraitement des données *****/
         domainColor(color, data);
         rangeColor(color,data);
@@ -41,8 +45,16 @@
   
         /***** Création du Candlestick Chart *****/
         createAxes(candlestickChartGroup, xAxis, yAxis, chartHeight);
-        createStems(candlestickChartGroup, xScale, yScale, data, color);   
-        createCandles(candlestickChartGroup, xScale, yScale, data, color);
+        createStems(candlestickChartGroup, xScale, yScale, data, tip);   
+        createCandles(candlestickChartGroup, xScale, yScale, data, color, tip);
+        createImages(candlestickChartGroup, xScale, yScale, data, chartHeight);   
+        
+
+        /***** Création de l'infobulle *****/
+        tip.html(function(d){
+            return getToolTipText.call(this, d, data);
+        });
+        candlestickChartSvg.call(tip);
      
     });
   
