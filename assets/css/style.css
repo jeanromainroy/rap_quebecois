@@ -166,10 +166,6 @@ rect {
 }
 
 
-rect:hover {
-  fill: #000;
-}
-
 .axis {
   shape-rendering: crispEdges
 }

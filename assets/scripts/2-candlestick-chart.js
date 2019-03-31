@@ -33,6 +33,24 @@ function createAxes(g, xAxis, yAxis, height) {
       .attr("x", -24)
       .text("# Mots Uniques");
 
+
+    // Reference Line
+    g.append("line")
+        .attr("id","refline")
+        .style("opacity",0)
+        .style("stroke", "black")  
+        .attr("x1", 0) 
+        .attr("y1", 40)
+        .attr("x2", 1200)
+        .attr("y2", 40);
+
+    // Reference text
+    g.append("text")
+        .attr("id","reftext")
+        .attr('font-size', '0.8em')
+        .attr("x", -36) 
+        .attr("y", 0);
+
 }
 
 
@@ -43,11 +61,10 @@ function createAxes(g, xAxis, yAxis, height) {
  * @param xAxis                 L'échelle pour l'axe X.
  * @param yAxis                 L'échelle pour l'axe Y.
  * @param data                  Données provenant du fichier CSV.
- * @param tip                   L'infobulle à afficher lorsqu'une barre est survolée.
  * @param height                La hauteur du graphique.
  *
  */
-function createCandles(g, xAxis, yAxis, data, tip, height) {
+function createCandles(g, xAxis, yAxis, data, height) {
 
     // On dessine les rectangles
     var candles = g.selectAll("rect")
@@ -77,12 +94,10 @@ function createCandles(g, xAxis, yAxis, data, tip, height) {
             return "#57b1ff";
         })
         .on("mouseover", function(d){
-            tip.show;
-            mouseOver(d.artist_name,height);
+            mouseOver(d,xAxis,yAxis,height);
         })
         .on("mouseout", function(d){
-            tip.hide;
-            mouseOut(d.artist_name,height);
+            mouseOut(d,height);
         });   
 }
 
@@ -93,18 +108,50 @@ function cleanStr(input) {
     return clean;
 }
 
-function mouseOver(artistName,height){
+function mouseOver(d,xAxis,yAxis,height){
 
-    var imgDOM = d3.select("#" + cleanStr(artistName));
+    var imgDOM = d3.select("#" + cleanStr(d.artist_name));
     imgDOM.attr('width',100).attr('height',100);
     imgDOM.attr('y',height - 110);
+
+    var lineDOM = d3.select("#refline");
+    lineDOM.attr('x1',0).attr('x2',xAxis.range()[1]);
+    lineDOM.attr('y1',yAxis(d.average)).attr('y2',yAxis(d.average));
+    lineDOM.style('opacity',1);
+
+    var textDOM = d3.select("#reftext");
+    textDOM.attr('y',yAxis(d.average)+4);
+    if(+d.average < 1000){
+        textDOM.attr("x", -30);
+    }else{
+        textDOM.attr("x", -36);
+    }
+    textDOM.text(d.average);
+
+    d3.selectAll("rect").filter(function(d2){
+        return d2.artist_name != d.artist_name;
+    }).attr("opacity",0.3);
+
+    d3.selectAll("#stems").filter(function(d2){
+        return d2.artist_name != d.artist_name;
+    }).attr("opacity",0.3);
+
 }
 
-function mouseOut(artistName,height){
+function mouseOut(d,height){
 
-    var imgDOM = d3.select("#" + cleanStr(artistName));
+    var imgDOM = d3.select("#" + cleanStr(d.artist_name));
     imgDOM.attr('width',40).attr('height',40);
     imgDOM.attr('y',height + 10);
+
+    var lineDOM = d3.select("#refline");
+    lineDOM.style('opacity',0);
+
+    var textDOM = d3.select("#reftext");
+    textDOM.text("");
+
+    d3.selectAll("rect").attr("opacity",1);
+    d3.selectAll("#stems").attr("opacity",1);
 }
 
 
@@ -116,11 +163,10 @@ function mouseOut(artistName,height){
  * @param xAxis                 L'échelle pour l'axe X.
  * @param yAxis                 L'échelle pour l'axe Y.
  * @param data                  Données provenant du fichier CSV.
- * @param tip                   L'infobulle à afficher lorsqu'une barre est survolée.
  * @param height                La hauteur du graphique.
  *
  */
-function createStems(g, xAxis, yAxis, data, tip, height) {
+function createStems(g, xAxis, yAxis, data, height) {
 
     // On dessine les lignes
     var stems = g.selectAll("g.line")
@@ -131,6 +177,7 @@ function createStems(g, xAxis, yAxis, data, tip, height) {
 
     stems
         .append("line")
+        .attr("id","stems")
         .attr('x1', function(d){
             return xAxis(d.artist_name) + 10;
         })
@@ -150,12 +197,10 @@ function createStems(g, xAxis, yAxis, data, tip, height) {
             return "3px";
         })
         .on("mouseover", function(d){
-            tip.show;
-            mouseOver(d.artist_name,height);
+            mouseOver(d,xAxis,yAxis,height);
         })
         .on("mouseout", function(d){
-            tip.hide;
-            mouseOut(d.artist_name,height);
+            mouseOut(d,height);
         });    
 }
 

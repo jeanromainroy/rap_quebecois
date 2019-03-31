@@ -31,26 +31,15 @@
     /***** Chargement des données *****/
     d3.csv("assets/data/statistics.csv").then(function (data) {
 
-        var tip = d3.tip()
-            .attr('class', 'd3-tip')
-            .offset([-20, 0]);
-
         /***** Prétraitement des données *****/
         domainX(xScale, data);
         domainY(yScale, data);
   
         /***** Création du Candlestick Chart *****/
         createAxes(candlestickChartGroup, xAxis, yAxis, chartHeight);
-        createStems(candlestickChartGroup, xScale, yScale, data, tip, chartHeight);   
-        createCandles(candlestickChartGroup, xScale, yScale, data, tip, chartHeight);
+        createStems(candlestickChartGroup, xScale, yScale, data, chartHeight);   
+        createCandles(candlestickChartGroup, xScale, yScale, data, chartHeight);
         createImages(candlestickChartGroup, xScale, yScale, data, chartHeight);   
-        
-
-        /***** Création de l'infobulle *****/
-        tip.html(function(d){
-            return getToolTipText.call(this, d, data);
-        });
-        candlestickChartSvg.call(tip);
      
     });
   
