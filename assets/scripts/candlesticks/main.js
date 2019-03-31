@@ -16,7 +16,7 @@
     var yScale = d3.scaleLinear().range([chartHeight, 0]);
 
     var xAxis = d3.axisBottom(xScale);
-    var yAxis = d3.axisLeft(yScale).tickFormat(localization.getFormattedNumber);
+    var yAxis = d3.axisLeft(yScale);
   
     /***** Création des éléments du diagramme à barres *****/
     var candlestickChartSvg = d3.select("body")

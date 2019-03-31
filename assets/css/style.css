@@ -165,6 +165,14 @@ rect {
   fill-opacity: 1;
 }
 
+circle {
+  fill-opacity: 1;
+}
+
+circle:hover {
+  fill-opacity: 0.5;
+}
+
 
 .axis {
   shape-rendering: crispEdges
@@ -194,7 +202,7 @@ rect {
   padding: 12px;
   border-radius: 2px;
   color: #fff;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(36, 36, 36, 1);
 }
 
 .d3-tip:after {
