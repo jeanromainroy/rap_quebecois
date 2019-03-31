@@ -9,10 +9,9 @@
       left: 50
     };
     var chartWidth = 1300 - chartMargin.left - chartMargin.right;
-    var chartHeight = 550 - chartMargin.top - chartMargin.bottom;
+    var chartHeight = 600 - chartMargin.top - chartMargin.bottom;
 
     /***** Échelles *****/
-    var color = d3.scaleOrdinal()
     var xScale = d3.scaleBand().range([0, chartWidth]);
     var yScale = d3.scaleLinear().range([chartHeight, 0]);
 
@@ -37,16 +36,13 @@
             .offset([-20, 0]);
 
         /***** Prétraitement des données *****/
-        domainColor(color, data);
-        rangeColor(color,data);
-
         domainX(xScale, data);
         domainY(yScale, data);
   
         /***** Création du Candlestick Chart *****/
         createAxes(candlestickChartGroup, xAxis, yAxis, chartHeight);
-        createStems(candlestickChartGroup, xScale, yScale, data, tip);   
-        createCandles(candlestickChartGroup, xScale, yScale, data, color, tip);
+        createStems(candlestickChartGroup, xScale, yScale, data, tip, chartHeight);   
+        createCandles(candlestickChartGroup, xScale, yScale, data, tip, chartHeight);
         createImages(candlestickChartGroup, xScale, yScale, data, chartHeight);   
         
 

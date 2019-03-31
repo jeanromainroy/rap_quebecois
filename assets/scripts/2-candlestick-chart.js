@@ -43,11 +43,11 @@ function createAxes(g, xAxis, yAxis, height) {
  * @param xAxis                 L'échelle pour l'axe X.
  * @param yAxis                 L'échelle pour l'axe Y.
  * @param data                  Données provenant du fichier CSV.
- * @param color                 L'échelle de couleurs ayant une couleur associée aux noms des artistes.
  * @param tip                   L'infobulle à afficher lorsqu'une barre est survolée.
+ * @param height                La hauteur du graphique.
  *
  */
-function createCandles(g, xAxis, yAxis, data, color, tip) {
+function createCandles(g, xAxis, yAxis, data, tip, height) {
 
     // On dessine les rectangles
     var candles = g.selectAll("rect")
@@ -74,10 +74,37 @@ function createCandles(g, xAxis, yAxis, data, color, tip) {
             return diff;
         })
         .attr("fill", function (d) {
-            return color(d.artist_name);
+            return "#57b1ff";
         })
-        .on("mouseover", tip.show)
-        .on("mouseout", tip.hide);   
+        .on("mouseover", function(d){
+            tip.show;
+            mouseOver(d.artist_name,height);
+        })
+        .on("mouseout", function(d){
+            tip.hide;
+            mouseOut(d.artist_name,height);
+        });   
+}
+
+
+
+function cleanStr(input) {
+    var clean = input.replace(/\W/g, '')
+    return clean;
+}
+
+function mouseOver(artistName,height){
+
+    var imgDOM = d3.select("#" + cleanStr(artistName));
+    imgDOM.attr('width',100).attr('height',100);
+    imgDOM.attr('y',height - 110);
+}
+
+function mouseOut(artistName,height){
+
+    var imgDOM = d3.select("#" + cleanStr(artistName));
+    imgDOM.attr('width',40).attr('height',40);
+    imgDOM.attr('y',height + 10);
 }
 
 
@@ -90,9 +117,10 @@ function createCandles(g, xAxis, yAxis, data, color, tip) {
  * @param yAxis                 L'échelle pour l'axe Y.
  * @param data                  Données provenant du fichier CSV.
  * @param tip                   L'infobulle à afficher lorsqu'une barre est survolée.
+ * @param height                La hauteur du graphique.
  *
  */
-function createStems(g, xAxis, yAxis, data, tip) {
+function createStems(g, xAxis, yAxis, data, tip, height) {
 
     // On dessine les lignes
     var stems = g.selectAll("g.line")
@@ -121,8 +149,14 @@ function createStems(g, xAxis, yAxis, data, tip) {
         .attr("stroke-width", function (d) {
             return "3px";
         })
-        .on("mouseover", tip.show)
-        .on("mouseout", tip.hide);    
+        .on("mouseover", function(d){
+            tip.show;
+            mouseOver(d.artist_name,height);
+        })
+        .on("mouseout", function(d){
+            tip.hide;
+            mouseOut(d.artist_name,height);
+        });    
 }
 
 
@@ -135,9 +169,10 @@ function createStems(g, xAxis, yAxis, data, tip) {
  * @param yAxis                 L'échelle pour l'axe Y.
  * @param data                  Données provenant du fichier CSV.
  * @param color                 L'échelle de couleurs ayant une couleur associée aux noms des artistes.
+ * @param height                La hauteur du graphique.
  *
  */
-function createImages(g, xAxis, yAxis, data, chartHeight) {
+function createImages(g, xAxis, yAxis, data, height) {
 
     // On dessine les lignes
     var imgs = g.selectAll("image")
@@ -151,13 +186,16 @@ function createImages(g, xAxis, yAxis, data, chartHeight) {
         .attr("xlink:href",function(d){
             return "../../python/data/" + d.artist_name + "/img.jpg";
         })
+        .attr("id",function(d){
+            return cleanStr(d.artist_name);
+        })
         .attr('x', function(d){
             return xAxis(d.artist_name);
         })
         .attr('y', function(d){
             //var offset = (+d["standard deviation"])/2.0;
             //return yAxis(+d.average + offset);
-            return chartHeight + 10;
+            return height + 10;
         })
         .attr('width', function(d){
             return 40;
@@ -167,16 +205,6 @@ function createImages(g, xAxis, yAxis, data, chartHeight) {
             //var diff = yAxis(+d.average - offset) - yAxis(+d.average + offset);
             //return diff;
             return 40;
-        })
-        .on("mouseover", function(d){
-            var thisDOM = d3.select(this)
-            thisDOM.attr('width',100).attr('height',100);
-            thisDOM.attr('y',chartHeight - 110);
-        })
-        .on("mouseout", function(d){
-            var thisDOM = d3.select(this)
-            thisDOM.attr('width',40).attr('height',40);
-            thisDOM.attr('y',chartHeight + 10);
         });     
 }
 
