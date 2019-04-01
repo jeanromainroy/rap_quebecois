@@ -1,5 +1,20 @@
 "use strict";
 
+/**
+ * Retourne la proportion de francais pour un artiste
+ *
+ * @param datum        Range de statistique pour un artiste
+ * @return {var}       Proportion de francais en %
+ */
+function getProportionEnglish(datum){
+
+    var ave_fra = +datum['francais average'];
+    var ave_eng = +datum['english average'];
+    var prop_fra = 100.0*ave_eng/(1.0*(ave_fra + ave_eng));
+
+    return prop_fra;
+}
+
 
 /**
  * Précise le domaine de l'échelle pour l'axe X.
@@ -7,27 +22,33 @@
  * @param xAxis       Échelle en X.
  * @param data        Données provenant du fichier CSV.
  */
-function domainX_bubble(xAxis, data) {
+function domainX_english(xAxis, data) {
 
 
     // Find Max
     var maxVal = 0;
     data.forEach(function(d){
-        if((+d.max) > maxVal){
-            maxVal = +d.max;
+
+        var prop_fra = getProportionEnglish(d);
+
+        if(prop_fra > maxVal){
+            maxVal = prop_fra;
         }
     });
 
     // Fin Min
     var minVal = maxVal;
     data.forEach(function(d){
-        if((+d.min) < minVal){
-            minVal = +d.min;
+
+        var prop_fra = getProportionEnglish(d);
+
+        if(prop_fra < minVal){
+            minVal = prop_fra;
         }
     });
 
     // Set domain
-    xAxis.domain([minVal,maxVal]);
+    xAxis.domain([Math.floor(minVal/5.0)*5,Math.ceil(maxVal/5.0)*5]);
 }
 
 
@@ -37,7 +58,7 @@ function domainX_bubble(xAxis, data) {
  * @param yAxis       Échelle en Y.
  * @param data        Données provenant du fichier CSV.
 */
-function domainY_bubble(yAxis, data) {
+function domainY_english(yAxis, data) {
 
     var names = []
     data.forEach(function(d){
@@ -58,26 +79,26 @@ function domainY_bubble(yAxis, data) {
  * @param data        Données provenant du fichier CSV.
  * 
 */
-function rangeY_bubble(yAxis, xAxis, height, radius, data) {
+function rangeY_english(yAxis, xAxis, height, radius, data) {
 
     const halfHeight = height/2.0;
 
     const bubblePadding = 8;
     
-    const linePaddingTop = 4;
+    const linePaddingTop = 14;
     const linePaddingBottom = 30;
 
-    var averages = []
+    var prop_fra = []
     data.forEach(function(d){
-        averages.push(+d.average);
+        prop_fra.push(getProportionEnglish(d));
     });
 
     var direction = 1;
     var yPos = []
 
-    for(var i = 0 ; i < averages.length ; i++){
+    for(var i = 0 ; i < prop_fra.length ; i++){
 
-        var currentXPos = xAxis(averages[i]);
+        var currentXPos = xAxis(prop_fra[i]);
         var currentYPos = halfHeight;
 
         while(true){
@@ -86,7 +107,7 @@ function rangeY_bubble(yAxis, xAxis, height, radius, data) {
 
             for(var j = 0 ; j < i ; j++){
 
-                var previousXPos = xAxis(averages[j]);
+                var previousXPos = xAxis(prop_fra[j]);
                 var previousYPos = yPos[j];
     
                 while(true){

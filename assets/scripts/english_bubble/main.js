@@ -9,7 +9,7 @@
       left: 50
     };
     var chartWidth = 1200 - chartMargin.left - chartMargin.right;
-    var chartHeight = 400 - chartMargin.top - chartMargin.bottom;
+    var chartHeight = 700 - chartMargin.top - chartMargin.bottom;
 
     /***** Échelles *****/
     var xScale = d3.scaleLinear().range([0, chartWidth]);
@@ -20,12 +20,12 @@
     var yAxis = d3.axisLeft(yScale);
   
     /***** Création des éléments du diagramme à barres *****/
-    var bubbleChartSvg = d3.select("body")
+    var splitBubbleChartSvg = d3.select("body")
         .append("svg")
         .attr("width", chartWidth + chartMargin.left + chartMargin.right)
         .attr("height", chartHeight + chartMargin.top + chartMargin.bottom);
   
-    var bubbleChartGroup = bubbleChartSvg.append("g")
+    var splitBubbleChartGroup = splitBubbleChartSvg.append("g")
         .attr("transform", "translate(" + chartMargin.left + "," + chartMargin.top + ")");
   
   
@@ -37,19 +37,19 @@
             .offset([-10, 0]);
 
         /***** Prétraitement des données *****/
-        domainX_bubble(xScale, data);
-        domainY_bubble(yScale, data);
-        rangeY_bubble(yScale, xScale, chartHeight, radius, data);
+        domainX_english(xScale, data);
+        domainY_english(yScale, data);
+        rangeY_english(yScale, xScale, chartHeight, radius, data);
   
         /***** Création du Stacked Bubble Chart *****/
-        createAxes_bubble(bubbleChartGroup, xAxis, chartWidth, chartHeight);
-        createBubbles(bubbleChartGroup, xScale, yScale, data, radius, tip);
+        createAxes_split_bubble(splitBubbleChartGroup, xAxis, chartWidth, chartHeight);
+        createSplitBubbles(splitBubbleChartGroup, splitBubbleChartSvg, xScale, yScale, data, radius, tip);
         
         /***** Création de l'infobulle *****/
         tip.html(function(d) {
             return getToolTipText.call(this, d);
         });
-        bubbleChartSvg.call(tip);
+        splitBubbleChartSvg.call(tip);
     });
   
 })(d3, localization);

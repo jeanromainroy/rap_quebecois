@@ -7,7 +7,7 @@
  * @param xAxis       Échelle en X.
  * @param data        Données provenant du fichier CSV.
  */
-function domainX(xAxis, data) {
+function domainX_candle(xAxis, data) {
 
     var names = []
     data.forEach(function(d){
@@ -24,7 +24,7 @@ function domainX(xAxis, data) {
  * @param yAxis       Échelle en Y.
  * @param data        Données provenant du fichier CSV.
 */
-function domainY(yAxis, data) {
+function domainY_candle(yAxis, data) {
 
     // Find Max
     var maxVal = 0;

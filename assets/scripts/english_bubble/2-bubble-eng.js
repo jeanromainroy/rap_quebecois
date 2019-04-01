@@ -29,14 +29,14 @@ function createAxes_split_bubble(g, xAxis, width, height) {
     g.append("text")
       .style("text-anchor", "start")
       .attr('font-size', '0.8em')
-      .attr("y", Math.round(height/2.0)+24)
+      .attr("y", Math.round(height/2.0)-30)
       .attr("x", width-50)
       .text("Proportion");
 
     g.append("text")
       .style("text-anchor", "start")
       .attr('font-size', '0.8em')
-      .attr("y", Math.round(height/2.0)+38)
+      .attr("y", Math.round(height/2.0)-14)
       .attr("x", width-50)
       .text("Anglais %");
 
@@ -131,7 +131,11 @@ function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
         .attr('height', function(d){
             return 2*radius;
         })
-	    .attr("opacity",1);
+        .attr("opacity",1);
+        
+
+    var overlayOpacity = 0.6;
+    var overlayOpacity_light = 0.2;
 
 
     var circles_fra = g.selectAll("circle-fra")
@@ -152,7 +156,7 @@ function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
         })
         .attr("r", radius)
 	    .attr("fill","#66A7C5")
-	    .attr("opacity",0.6)
+	    .attr("opacity",overlayOpacity)
         .attr("clip-path",function(d){
             return "url(#" + "clip_fra_" + cleanStr(d.artist_name) + ")";
         })
@@ -161,20 +165,20 @@ function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
 
             g.selectAll("image").filter(function(d2){
                 return "img2_" + d2.artist_name != "img2_" + d.artist_name;
-            }).attr("opacity",0.3);
+            }).attr("opacity",overlayOpacity_light);
 
             g.selectAll("circle").filter(function(d2){
                 return "circle_eng_" + d2.artist_name != "circle_eng_" + d.artist_name;
-            }).attr("opacity",0.3);
+            }).attr("opacity",overlayOpacity_light);
 
             g.selectAll("circle").filter(function(d2){
                 return "circle_fra_" + d2.artist_name != "circle_fra_" + d.artist_name;
-            }).attr("opacity",0.3);
+            }).attr("opacity",overlayOpacity_light);
         })
         .on("mouseout", function(d){
             tip.hide(d);
             g.selectAll("image").attr("opacity",1);
-            g.selectAll("circle").attr("opacity",0.6);
+            g.selectAll("circle").attr("opacity",overlayOpacity);
         });
 
 
@@ -196,7 +200,7 @@ function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
         })
         .attr("r", radius)
         .attr("fill","#EE3233")
-	    .attr("opacity",0.6)
+	    .attr("opacity",overlayOpacity)
         .attr("clip-path",function(d){
             return "url(#" + "clip_eng_" + cleanStr(d.artist_name) + ")";
         })
@@ -205,20 +209,20 @@ function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
 
             g.selectAll("image").filter(function(d2){
                 return "img2_" + d2.artist_name != "img2_" + d.artist_name;
-            }).attr("opacity",0.3);
+            }).attr("opacity",overlayOpacity_light);
 
             g.selectAll("circle").filter(function(d2){
                 return "circle_eng_" + d2.artist_name != "circle_eng_" + d.artist_name;
-            }).attr("opacity",0.3);
+            }).attr("opacity",overlayOpacity_light);
 
             g.selectAll("circle").filter(function(d2){
                 return "circle_fra_" + d2.artist_name != "circle_fra_" + d.artist_name;
-            }).attr("opacity",0.3);
+            }).attr("opacity",overlayOpacity_light);
         })
         .on("mouseout", function(d){
             tip.hide(d);
             g.selectAll("image").attr("opacity",1);
-            g.selectAll("circle").attr("opacity",0.6);
+            g.selectAll("circle").attr("opacity",overlayOpacity);
         });
 
 

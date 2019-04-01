@@ -34,8 +34,8 @@
     d3.csv("assets/data/statistics.csv").then(function (data) {
 
         /***** Prétraitement des données *****/
-        domainX(xScale, data);
-        domainY(yScale, data);
+        domainX_candle(xScale, data);
+        domainY_candle(yScale, data);
   
         /***** Création du Candlestick Chart *****/
         createAxes(candlestickChartGroup, xAxis, yAxis, chartHeight);

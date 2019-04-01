@@ -24,9 +24,9 @@ function createAxes_bubble(g, xAxis, width, height) {
     g.append("text")
       .style("text-anchor", "start")
       .attr('font-size', '0.8em')
-      .attr("y", Math.round(height/2.0)+24)
-      .attr("x", width-50)
-      .text("# Mots Uniques");
+      .attr("y", Math.round(height/2.0)+40)
+      .attr("x", width-30)
+      .text("Mots uniques");
 
 }
 
@@ -75,7 +75,7 @@ function createBubbles(g, xAxis, yAxis, data, radius, tip) {
             tip.show(d);
             g.selectAll("image").filter(function(d2){
                 return "img_" + d2.artist_name != "img_" + d.artist_name;
-            }).attr("opacity",0.3);
+            }).attr("opacity",0.2);
         })
         .on("mouseout", function(d){
             tip.hide(d);
