@@ -229,7 +229,7 @@ function createImages(g, xAxis, yAxis, data, height) {
     imgs
         .append("image")
         .attr("xlink:href",function(d){
-            return "../../python/data/" + d.artist_name + "/img.jpg";
+            return "../../python/data/" + d.artist_name + "/cropped.jpg";
         })
         .attr("id",function(d){
             return cleanStr(d.artist_name);

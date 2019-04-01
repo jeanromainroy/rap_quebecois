@@ -54,7 +54,7 @@ function createBubbles(g, xAxis, yAxis, data, radius, tip) {
     bubbles
         .append("image")
         .attr("xlink:href",function(d){
-            return "python/data/" + d.artist_name + "/img.jpg";
+            return "python/data/" + d.artist_name + "/cropped.jpg";
         })
         .attr('x', function(d){
             return xAxis(+d.average) - 25;
