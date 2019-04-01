@@ -13,6 +13,7 @@ function createAxes(g, xAxis, yAxis, height) {
     // Axe horizontal
     g.append("g")
         .attr("class", "x axis")
+        .attr("id","horz_label")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
         .selectAll("text")
@@ -23,6 +24,7 @@ function createAxes(g, xAxis, yAxis, height) {
   
     g.append("g")
       .attr("class", "y axis")
+      .attr("id","vert_label")
       .call(yAxis);
   
     // Title Y Axis
@@ -34,9 +36,29 @@ function createAxes(g, xAxis, yAxis, height) {
       .text("# Mots Uniques");
 
 
-    // Reference Line
+    // Average Reference Line
     g.append("line")
-        .attr("id","refline")
+        .attr("id","refline_ave")
+        .style("opacity",0)
+        .style("stroke", "black")  
+        .attr("x1", 0) 
+        .attr("y1", 40)
+        .attr("x2", 1200)
+        .attr("y2", 40);
+
+    // Max Reference Line
+    g.append("line")
+        .attr("id","refline_min")
+        .style("opacity",0)
+        .style("stroke", "black")  
+        .attr("x1", 0) 
+        .attr("y1", 40)
+        .attr("x2", 1200)
+        .attr("y2", 40);
+
+    // Max Reference Line
+    g.append("line")
+        .attr("id","refline_max")
         .style("opacity",0)
         .style("stroke", "black")  
         .attr("x1", 0) 
@@ -46,10 +68,24 @@ function createAxes(g, xAxis, yAxis, height) {
 
     // Reference text
     g.append("text")
-        .attr("id","reftext")
+    .attr("id","reftext_ave")
+    .attr('font-size', '0.8em')
+    .attr("x", -36) 
+    .attr("y", 0);
+
+    // Reference text
+    g.append("text")
+        .attr("id","reftext_min")
         .attr('font-size', '0.8em')
         .attr("x", -36) 
         .attr("y", 0);
+
+    // Reference text
+    g.append("text")
+    .attr("id","reftext_max")
+    .attr('font-size', '0.8em')
+    .attr("x", -36) 
+    .attr("y", 0);
 
 }
 
@@ -109,25 +145,62 @@ function cleanStr(input) {
     return clean;
 }
 
+function select_axis_label(datum) {
+
+    return d3.select('#horz_label')
+    	.selectAll('text')
+    	.filter(function(x) {
+            return x == datum; 
+        });
+}
+
 function mouseOver(d,xAxis,yAxis,height){
 
-    var imgDOM = d3.select("#" + cleanStr(d.artist_name));
-    imgDOM.attr('width',100).attr('height',100);
-    imgDOM.attr('y',height - 110);
+    var lineDOM_ave = d3.select("#refline_ave");
+    lineDOM_ave.attr('x1',0).attr('x2',xAxis.range()[1]);
+    lineDOM_ave.attr('y1',yAxis(d.average)).attr('y2',yAxis(d.average));
+    lineDOM_ave.style('opacity',1);
 
-    var lineDOM = d3.select("#refline");
-    lineDOM.attr('x1',0).attr('x2',xAxis.range()[1]);
-    lineDOM.attr('y1',yAxis(d.average)).attr('y2',yAxis(d.average));
-    lineDOM.style('opacity',1);
+    var lineDOM_min = d3.select("#refline_min");
+    lineDOM_min.attr('x1',0).attr('x2',xAxis.range()[1]);
+    lineDOM_min.attr('y1',yAxis(d.min)).attr('y2',yAxis(d.min));
+    lineDOM_min.style('opacity',1);
 
-    var textDOM = d3.select("#reftext");
-    textDOM.attr('y',yAxis(d.average)+4);
+    var lineDOM_max = d3.select("#refline_max");
+    lineDOM_max.attr('x1',0).attr('x2',xAxis.range()[1]);
+    lineDOM_max.attr('y1',yAxis(d.max)).attr('y2',yAxis(d.max));
+    lineDOM_max.style('opacity',1);
+
+    d3.select("#vert_label").attr("opacity",0.1);
+
+    select_axis_label(d.artist_name).attr('style', "font-weight: bold;").style("text-anchor", "start");
+
+    var textDOM_ave = d3.select("#reftext_ave");
+    textDOM_ave.attr('y',yAxis(d.average)+4);
     if(+d.average < 1000){
-        textDOM.attr("x", -30);
+        textDOM_ave.attr("x", -30);
     }else{
-        textDOM.attr("x", -36);
+        textDOM_ave.attr("x", -36);
     }
-    textDOM.text(d.average);
+    textDOM_ave.text(d.average);
+
+    var textDOM_min = d3.select("#reftext_min");
+    textDOM_min.attr('y',yAxis(d.min)+4);
+    if(+d.average < 1000){
+        textDOM_min.attr("x", -30);
+    }else{
+        textDOM_min.attr("x", -36);
+    }
+    textDOM_min.text(d.min);
+
+    var textDOM_max = d3.select("#reftext_max");
+    textDOM_max.attr('y',yAxis(d.max)+4);
+    if(+d.average < 1000){
+        textDOM_max.attr("x", -30);
+    }else{
+        textDOM_max.attr("x", -36);
+    }
+    textDOM_max.text(d.max);
 
     d3.selectAll("rect").filter(function(d2){
         return d2.artist_name != d.artist_name;
@@ -140,16 +213,28 @@ function mouseOver(d,xAxis,yAxis,height){
 }
 
 function mouseOut(d,height){
+    
+    var lineDOM_ave = d3.select("#refline_ave");
+    lineDOM_ave.style('opacity',0);
 
-    var imgDOM = d3.select("#" + cleanStr(d.artist_name));
-    imgDOM.attr('width',40).attr('height',40);
-    imgDOM.attr('y',height + 10);
+    var lineDOM_min = d3.select("#refline_min");
+    lineDOM_min.style('opacity',0);
 
-    var lineDOM = d3.select("#refline");
-    lineDOM.style('opacity',0);
+    var lineDOM_max = d3.select("#refline_max");
+    lineDOM_max.style('opacity',0);
 
-    var textDOM = d3.select("#reftext");
-    textDOM.text("");
+    d3.select("#vert_label").attr("opacity",1);
+
+    select_axis_label(d.artist_name).attr('style', "font-weight: regular;").style("text-anchor", "start");
+
+    var textDOM_ave = d3.select("#reftext_ave");
+    textDOM_ave.text("");
+
+    var textDOM_min = d3.select("#reftext_min");
+    textDOM_min.text("");
+
+    var textDOM_max = d3.select("#reftext_max");
+    textDOM_max.text("");
 
     d3.selectAll("rect").attr("opacity",1);
     d3.selectAll("#stems").attr("opacity",1);
