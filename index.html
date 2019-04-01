@@ -11,52 +11,54 @@
   <script type="text/javascript" src="assets/libs/d3.js"></script>
   <script type="text/javascript" src="assets/libs/localization-fr.js"></script>
   <script type="text/javascript" src="assets/libs/d3-tip.js"></script>
+
+  <!-- Bubble Chart du vocabulaire -->
+  <script type="text/javascript" src="assets/scripts/bubble/1-preproc.js"></script>
+  <script type="text/javascript" src="assets/scripts/bubble/2-bubble-chart.js"></script>
+  <script type="text/javascript" src="assets/scripts/bubble/3-tip.js"></script>
+
+  <!-- Candlestick pour decrire la methodologie -->
+  <script type="text/javascript" src="assets/scripts/candlesticks/1-preproc.js"></script>
+  <script type="text/javascript" src="assets/scripts/candlesticks/2-candlestick-chart.js"></script>
+
+
+  <!-- Split Bubble Chart de l'anglais -->
+  <script type="text/javascript" src="assets/scripts/split_bubble/1-preproc.js"></script>
+  <script type="text/javascript" src="assets/scripts/split_bubble/2-split-bubble.js"></script>
+  
 </head>
 <body>
 
   <section id="vocubulaire">
-    <div>
-      <h1>Les rappeurs québécois ordonnés par leur vocabulaire</h1>
-
-      <div>
-        <script type="text/javascript" src="assets/scripts/bubble/1-preproc.js"></script>
-        <script type="text/javascript" src="assets/scripts/bubble/2-bubble-chart.js"></script>
-        <script type="text/javascript" src="assets/scripts/bubble/3-tip.js"></script>
-        <script type="text/javascript" src="assets/scripts/bubble/main.js"></script>
-      </div>
-
-      <div>
-          <script type="text/javascript" src="assets/scripts/candlesticks/1-preproc.js"></script>
-          <script type="text/javascript" src="assets/scripts/candlesticks/2-candlestick-chart.js"></script>
-          <script type="text/javascript" src="assets/scripts/candlesticks/main.js"></script>
-      </div>
-      <p>
+    <h1>Le vocabulaire des rappeurs québécois</h1>
+    <p >
       Parmi 3500 mots collectés aléatoirement dans leur répertoire, on compte le nombre de mots uniques.
-      </p>
+    </p>
+    <div>
+      <script type="text/javascript" src="assets/scripts/bubble/main.js"></script>
+    </div>
+  </section>
+
+  <section id="vocubulaire">
+    <p>
+      À titre de référence, on présente ci-bas le graphique à moustache de l'expérience précédente. 
+    </p>
+    <div>
+      <script type="text/javascript" src="assets/scripts/candlesticks/main.js"></script>
     </div>
   </section>
 
 
   <section id="anglicisation">
+    <h2>Quel est la place de l’anglais dans le rap québécois ?</h2>
+
+    <p>
+      La langue française perd du terrain chaque année et les québécois sont fortement concernés par cet
+      enjeu. Ce thème nous permet de provoquer des émotions viscérales chez le lecteur.
+    </p>
+
     <div>
-      <h2>Quel est la place de l’anglais dans le rap québécois ?</h2>
-
-      <p>
-        La langue française perd du terrain chaque année et les québécois sont fortement concernés par cet
-        enjeu. Ce thème nous permet de provoquer des émotions viscérales chez le lecteur.
-      </p>
-    </div>
-  </section>
-
-
-  <section id="regionalisme">
-    <div>
-      <h2>Est-ce qu’un phénomène de régionalisme existe dans le rap québécois ?</h2>
-
-      <p>
-          Un thème un peu plus intellectuel, où on laisse le lecteur ruminer sur des concepts 
-          tels que l’exode rural, la culture de ses ancêtres, la modernité, etc.
-      </p>
+      <script type="text/javascript" src="assets/scripts/split_bubble/main.js"></script>
     </div>
   </section>
 

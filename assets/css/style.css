@@ -6,6 +6,9 @@ body {
 
 div {
   position: relative;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 h1{
@@ -28,21 +31,9 @@ p{
 
 /* Section : Vocabulaire */
 #vocubulaire {
-  padding: 40px;
+  padding: 20px;
   text-align: center;
 }
-
-#vocubulaire div{
-  margin-bottom: 40px;
-  padding-left: 100px;
-  padding-right: 100px;
-  overflow: hidden;
-}
-
-#vocubulaire h3{
-  text-align: left;
-}
-
 
 /* Section : Anglicisation */
 #anglicisation {
@@ -55,6 +46,23 @@ p{
   padding: 40px;
   text-align: center;
 }
+
+
+/***** SVG *****/
+svg {
+  background-color: white;
+}
+
+
+/***** Tooltip *****/
+.d3-tip {
+  line-height: 1;
+  padding: 12px;
+  border-radius: 2px;
+  color: #fff;
+  background: rgba(36, 36, 36, 1);
+}
+
 
 
 
@@ -154,79 +162,3 @@ p{
   animation: fadeOut 1s;
 }
 
-
-
-/***** SVG *****/
-svg {
-  background-color: white;
-}
-
-rect {
-  fill-opacity: 1;
-}
-
-circle {
-  fill-opacity: 1;
-}
-
-circle:hover {
-  fill-opacity: 0.5;
-}
-
-
-.axis {
-  shape-rendering: crispEdges
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: black;
-  shape-rendering: crispEdges;
-}
-
-.y.axis path {
-  fill: none;
-  stroke: black;
-  shape-rendering: crispEdges;
-}
-
-.group text {
-  fill: #fff;
-}
-
-
-/***** Tooltip *****/
-.d3-tip {
-  line-height: 1;
-  padding: 12px;
-  border-radius: 2px;
-  color: #fff;
-  background: rgba(36, 36, 36, 1);
-}
-
-.d3-tip:after {
-  display: inline;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  margin: -1px 0 0 0;
-  box-sizing: border-box;
-  font-size: 10px;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
-
-div.tooltip {	
-  position: absolute;	
-  display: inline;		
-  text-align: center;			
-  padding: 4px;	
-  font-size: 10px;	
-  background: #fff;		
-  pointer-events: none;			
-  border: 1px solid black;
-}
