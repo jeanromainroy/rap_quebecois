@@ -4,13 +4,13 @@
  * Retourne la proportion de francais pour un artiste
  *
  * @param datum        Range de statistique pour un artiste
- * @return {var}       Proportion de francais
+ * @return {var}       Proportion de francais en %
  */
 function getProportionEnglish(datum){
 
     var ave_fra = +datum['francais average'];
     var ave_eng = +datum['english average'];
-    var prop_fra = ave_eng/(1.0*(ave_fra + ave_eng));
+    var prop_fra = 100.0*ave_eng/(1.0*(ave_fra + ave_eng));
 
     return prop_fra;
 }

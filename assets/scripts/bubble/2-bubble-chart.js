@@ -56,6 +56,9 @@ function createBubbles(g, xAxis, yAxis, data, radius, tip) {
         .attr("xlink:href",function(d){
             return "python/data/" + d.artist_name + "/cropped.jpg";
         })
+        .attr("id",function(d){
+            return "img_" + d.artist_name;
+        })
         .attr('x', function(d){
             return xAxis(+d.average) - radius;
         })
@@ -68,6 +71,14 @@ function createBubbles(g, xAxis, yAxis, data, radius, tip) {
         .attr('height', function(d){
             return radius*2;
         })
-        .on("mouseover", tip.show)
-        .on("mouseout", tip.hide);  
+        .on("mouseover", function(d){
+            tip.show(d);
+            d3.selectAll("image").filter(function(d2){
+                return "img_" + d2.artist_name != "img_" + d.artist_name;
+            }).attr("opacity",0.3);
+        })
+        .on("mouseout", function(d){
+            tip.hide(d);
+            d3.selectAll("image").attr("opacity",1);
+        });  
 }
