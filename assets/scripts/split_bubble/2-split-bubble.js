@@ -117,7 +117,7 @@ function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
             return "python/data/" + d.artist_name + "/cropped.jpg";
         })
         .attr("id",function(d){
-            return "img_" + d.artist_name;
+            return "img2_" + d.artist_name;
         })
         .attr('x', function(d){
             return xAxis(getProportionEnglish(d)) - radius;
@@ -159,22 +159,22 @@ function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
         .on("mouseover", function(d){
             tip.show(d);
 
-            d3.selectAll("image").filter(function(d2){
-                return "img_" + d2.artist_name != "img_" + d.artist_name;
+            g.selectAll("image").filter(function(d2){
+                return "img2_" + d2.artist_name != "img2_" + d.artist_name;
             }).attr("opacity",0.3);
 
-            d3.selectAll("circle").filter(function(d2){
+            g.selectAll("circle").filter(function(d2){
                 return "circle_eng_" + d2.artist_name != "circle_eng_" + d.artist_name;
             }).attr("opacity",0.3);
 
-            d3.selectAll("circle").filter(function(d2){
+            g.selectAll("circle").filter(function(d2){
                 return "circle_fra_" + d2.artist_name != "circle_fra_" + d.artist_name;
             }).attr("opacity",0.3);
         })
         .on("mouseout", function(d){
             tip.hide(d);
-            d3.selectAll("image").attr("opacity",1);
-            d3.selectAll("circle").attr("opacity",0.6);
+            g.selectAll("image").attr("opacity",1);
+            g.selectAll("circle").attr("opacity",0.6);
         });
 
 
@@ -203,22 +203,22 @@ function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
         .on("mouseover", function(d){
             tip.show(d);
 
-            d3.selectAll("image").filter(function(d2){
-                return "img_" + d2.artist_name != "img_" + d.artist_name;
+            g.selectAll("image").filter(function(d2){
+                return "img2_" + d2.artist_name != "img2_" + d.artist_name;
             }).attr("opacity",0.3);
 
-            d3.selectAll("circle").filter(function(d2){
+            g.selectAll("circle").filter(function(d2){
                 return "circle_eng_" + d2.artist_name != "circle_eng_" + d.artist_name;
             }).attr("opacity",0.3);
 
-            d3.selectAll("circle").filter(function(d2){
+            g.selectAll("circle").filter(function(d2){
                 return "circle_fra_" + d2.artist_name != "circle_fra_" + d.artist_name;
             }).attr("opacity",0.3);
         })
         .on("mouseout", function(d){
             tip.hide(d);
-            d3.selectAll("image").attr("opacity",1);
-            d3.selectAll("circle").attr("opacity",0.6);
+            g.selectAll("image").attr("opacity",1);
+            g.selectAll("circle").attr("opacity",0.6);
         });
 
 

@@ -73,12 +73,12 @@ function createBubbles(g, xAxis, yAxis, data, radius, tip) {
         })
         .on("mouseover", function(d){
             tip.show(d);
-            d3.selectAll("image").filter(function(d2){
+            g.selectAll("image").filter(function(d2){
                 return "img_" + d2.artist_name != "img_" + d.artist_name;
             }).attr("opacity",0.3);
         })
         .on("mouseout", function(d){
             tip.hide(d);
-            d3.selectAll("image").attr("opacity",1);
+            g.selectAll("image").attr("opacity",1);
         });  
 }
