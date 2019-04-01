@@ -5,16 +5,16 @@
     var chartMargin = {
       top: 20,
       right: 50,
-      bottom: 150,
+      bottom: 20,
       left: 50
     };
     var chartWidth = 1200 - chartMargin.left - chartMargin.right;
-    var chartHeight = 800 - chartMargin.top - chartMargin.bottom;
+    var chartHeight = 600 - chartMargin.top - chartMargin.bottom;
 
     /***** Échelles *****/
     var xScale = d3.scaleLinear().range([0, chartWidth]);
     var yScale = d3.scaleOrdinal();
-    var radius = 30;
+    var radius = 25;
 
     var xAxis = d3.axisBottom(xScale);
     var yAxis = d3.axisLeft(yScale);

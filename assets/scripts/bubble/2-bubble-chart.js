@@ -63,10 +63,10 @@ function createBubbles(g, xAxis, yAxis, data, radius, tip) {
             return yAxis(d.artist_name) - radius;
         })
         .attr('width', function(d){
-            return 45;
+            return radius*2;
         })
         .attr('height', function(d){
-            return 45;
+            return radius*2;
         })
         .on("mouseover", tip.show)
         .on("mouseout", tip.hide);  

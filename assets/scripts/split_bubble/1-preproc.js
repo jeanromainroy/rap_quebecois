@@ -83,10 +83,10 @@ function rangeY_split_bubble(yAxis, xAxis, height, radius, data) {
 
     const halfHeight = height/2.0;
 
-    const bubblePadding = 2;
+    const bubblePadding = 8;
     
-    const linePaddingTop = 4;
-    const linePaddingBottom = 30;
+    const linePaddingTop = 14;
+    const linePaddingBottom = 40;
 
     var prop_fra = []
     data.forEach(function(d){

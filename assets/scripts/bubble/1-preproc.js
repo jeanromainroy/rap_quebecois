@@ -62,7 +62,7 @@ function rangeY_bubble(yAxis, xAxis, height, radius, data) {
 
     const halfHeight = height/2.0;
 
-    const bubblePadding = 2;
+    const bubblePadding = 8;
     
     const linePaddingTop = 4;
     const linePaddingBottom = 30;

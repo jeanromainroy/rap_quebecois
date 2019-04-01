@@ -150,7 +150,7 @@ function select_axis_label(datum) {
     return d3.select('#horz_label')
     	.selectAll('text')
     	.filter(function(x) {
-            return x == datum; 
+            return x != datum; 
         });
 }
 
@@ -174,7 +174,8 @@ function mouseOver(d,xAxis,yAxis,height){
 
     d3.select("#vert_label").attr("opacity",0.1);
 
-    select_axis_label(d.artist_name).attr('style', "font-weight: bold;").style("text-anchor", "start");
+    select_axis_label(d.artist_name).attr('opacity', 0.1).style("text-anchor", "start");
+    
 
     var textDOM_ave = d3.select("#reftext_ave");
     textDOM_ave.attr('y',yAxis(d.average)+4);
@@ -226,7 +227,7 @@ function mouseOut(d,height){
 
     d3.select("#vert_label").attr("opacity",1);
 
-    select_axis_label(d.artist_name).attr('style', "font-weight: regular;").style("text-anchor", "start");
+    select_axis_label(d.artist_name).attr('opacity', 1).style("text-anchor", "start");
 
     var textDOM_ave = d3.select("#reftext_ave");
     textDOM_ave.text("");

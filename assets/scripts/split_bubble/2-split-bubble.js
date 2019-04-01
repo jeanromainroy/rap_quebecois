@@ -57,6 +57,7 @@ function createAxes_split_bubble(g, xAxis, width, height) {
  */
 function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
 
+
     var clips_eng = svg.selectAll("defs")
                 .data(data)
                 .enter()
@@ -103,6 +104,31 @@ function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
         .attr("height",2*radius);
 
 
+    // On dessine les rectangles
+    var bubbles = g.selectAll("image")
+        .data(data)
+        .enter()
+        .append('g');
+
+
+    bubbles
+        .append("image")
+        .attr("xlink:href",function(d){
+            return "python/data/" + d.artist_name + "/cropped.jpg";
+        })
+        .attr('x', function(d){
+            return xAxis(getProportionEnglish(d)) - radius;
+        })
+        .attr('y', function(d){
+            return yAxis(d.artist_name) - radius;
+        })
+        .attr('width', function(d){
+            return 2*radius;
+        })
+        .attr('height', function(d){
+            return 2*radius;
+        })
+	    .attr("opacity",1);
 
 
     var circles_fra = g.selectAll("circle-fra")
@@ -120,6 +146,7 @@ function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
         })
         .attr("r", radius)
 	    .attr("fill","#66A7C5")
+	    .attr("opacity",0.01)
         .attr("clip-path",function(d){
             return "url(#" + "clip_fra_" + cleanStr(d.artist_name) + ")";
         })
@@ -142,9 +169,12 @@ function createSplitBubbles(g, svg, xAxis, yAxis, data, radius, tip){
         })
         .attr("r", radius)
         .attr("fill","#EE3233")
+	    .attr("opacity",1)
         .attr("clip-path",function(d){
             return "url(#" + "clip_eng_" + cleanStr(d.artist_name) + ")";
         })
         .on("mouseover", tip.show)
         .on("mouseout", tip.hide);
+
+
 }
