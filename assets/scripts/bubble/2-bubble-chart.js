@@ -57,10 +57,10 @@ function createBubbles(g, xAxis, yAxis, data, radius, tip) {
             return "python/data/" + d.artist_name + "/cropped.jpg";
         })
         .attr('x', function(d){
-            return xAxis(+d.average) - 25;
+            return xAxis(+d.average) - radius;
         })
         .attr('y', function(d){
-            return yAxis(d.artist_name) - 25;
+            return yAxis(d.artist_name) - radius;
         })
         .attr('width', function(d){
             return 45;

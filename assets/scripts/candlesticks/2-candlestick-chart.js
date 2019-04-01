@@ -19,7 +19,7 @@ function createAxes(g, xAxis, yAxis, height) {
         .selectAll("text")
         .attr("y", 16) // vertical padding 
         .attr("x", 0) // horizontal padding 
-        .attr("transform", "rotate(60)")
+        .attr("transform", "translate(14,4)rotate(60)")
         .style("text-anchor", "start");
   
     g.append("g")
@@ -154,6 +154,7 @@ function select_axis_label(datum) {
         });
 }
 
+
 function mouseOver(d,xAxis,yAxis,height){
 
     var lineDOM_ave = d3.select("#refline_ave");
@@ -208,7 +209,7 @@ function mouseOver(d,xAxis,yAxis,height){
 
     d3.selectAll("#stems").filter(function(d2){
         return d2.artist_name != d.artist_name;
-    }).attr("opacity",0.3);
+    }).attr("opacity",0.1);
 
 }
 

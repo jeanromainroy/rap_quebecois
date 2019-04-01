@@ -1,18 +1,18 @@
 nbr_words_checked,3500
-nbr_of_samples,6
+nbr_of_samples,9
 nbr_of_words,5833
-average,1173.0
-median,1178.0
+average,1216.0
+median,1249.0
 standard deviation,67.0
-max,1244
-min,1097
-francais average,1023.0
-francais median,1025.0
-francais standard deviation,13.0
-francais max,1039
-francais min,1000
-english average,432.0
-english median,450.0
-english standard deviation,75.0
-english max,520
-english min,338
+max,1284
+min,1107
+francais average,1035.0
+francais median,1038.0
+francais standard deviation,15.0
+francais max,1054
+francais min,1006
+english average,471.0
+english median,508.0
+english standard deviation,69.0
+english max,535
+english min,339

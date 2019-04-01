@@ -61,10 +61,11 @@ function domainY_bubble(yAxis, data) {
 function rangeY_bubble(yAxis, xAxis, height, radius, data) {
 
     const halfHeight = height/2.0;
-    const moveIncrement = 2;
+
+    const bubblePadding = 2;
+    
     const linePaddingTop = 4;
     const linePaddingBottom = 30;
-    const bubblePadding = 4;
 
     var averages = []
     data.forEach(function(d){
@@ -73,31 +74,45 @@ function rangeY_bubble(yAxis, xAxis, height, radius, data) {
 
     var direction = 1;
     var yPos = []
-    yPos.push(halfHeight - 1.5*radius); // First Artist
 
-    for(var i = 1 ; i < averages.length ; i++){
+    for(var i = 0 ; i < averages.length ; i++){
 
         var currentXPos = xAxis(averages[i]);
         var currentYPos = halfHeight;
 
-        for(var j = 0 ; j < i ; j++){
+        while(true){
 
-            var previousXPos = xAxis(averages[j]);
-            var previousYPos = yPos[j];
+            var testAllPassed = 0;
 
-            while(true){
+            for(var j = 0 ; j < i ; j++){
 
-                if(quadDist(currentXPos,currentYPos,previousXPos,previousYPos) < (2*radius + bubblePadding)){
-                    currentYPos = currentYPos + direction*moveIncrement;
-                }else if(((currentYPos + radius + linePaddingTop) > halfHeight) && ((currentYPos - radius - linePaddingBottom) < halfHeight)){
-                    currentYPos = currentYPos + direction*moveIncrement;
-                }else{
-                    break;
-                }
-            }            
+                var previousXPos = xAxis(averages[j]);
+                var previousYPos = yPos[j];
+    
+                while(true){
+    
+                    if(quadDist(currentXPos,currentYPos,previousXPos,previousYPos) < (2*radius + bubblePadding)){
+                        currentYPos = currentYPos + direction;
+                        testAllPassed = testAllPassed + 1;
+                    }else if(((currentYPos + radius + linePaddingTop) > halfHeight) && ((currentYPos - radius - linePaddingBottom) < halfHeight)){
+                        currentYPos = currentYPos + direction;
+                        testAllPassed = testAllPassed + 1;
+                    }else{
+                        break;
+                    }
+                }            
+            }
+
+            if(testAllPassed == 0){
+                break;
+            }
         }
         
-        yPos.push(currentYPos);
+        if(i != 0){
+            yPos.push(currentYPos);
+        }else{
+            yPos.push(halfHeight - radius - linePaddingTop);
+        }
 
         direction = -(direction);
     }
