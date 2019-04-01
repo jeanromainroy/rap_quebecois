@@ -18,7 +18,7 @@ function createAxes(g, xAxis, yAxis, height) {
         .selectAll("text")
         .attr("y", 16) // vertical padding 
         .attr("x", 0) // horizontal padding 
-        .attr("transform", "translate(20,50)rotate(60)")
+        .attr("transform", "rotate(60)")
         .style("text-anchor", "start");
   
     g.append("g")
@@ -61,10 +61,11 @@ function createAxes(g, xAxis, yAxis, height) {
  * @param xAxis                 L'échelle pour l'axe X.
  * @param yAxis                 L'échelle pour l'axe Y.
  * @param data                  Données provenant du fichier CSV.
+ * @param candle_width          La largeur des chandelles
  * @param height                La hauteur du graphique.
  *
  */
-function createCandles(g, xAxis, yAxis, data, height) {
+function createCandles(g, xAxis, yAxis, data, candle_width, height) {
 
     // On dessine les rectangles
     var candles = g.selectAll("rect")
@@ -83,7 +84,7 @@ function createCandles(g, xAxis, yAxis, data, height) {
             return yAxis(+d.average + offset);
         })
         .attr('width', function(d){
-            return 20;
+            return candle_width;
         })
         .attr('height', function(d){
             var offset = (+d["standard deviation"])/2.0;
@@ -163,10 +164,11 @@ function mouseOut(d,height){
  * @param xAxis                 L'échelle pour l'axe X.
  * @param yAxis                 L'échelle pour l'axe Y.
  * @param data                  Données provenant du fichier CSV.
+ * @param candle_width          La largeur des chandelles
  * @param height                La hauteur du graphique.
  *
  */
-function createStems(g, xAxis, yAxis, data, height) {
+function createStems(g, xAxis, yAxis, data, candle_width, height) {
 
     // On dessine les lignes
     var stems = g.selectAll("g.line")
@@ -179,10 +181,10 @@ function createStems(g, xAxis, yAxis, data, height) {
         .append("line")
         .attr("id","stems")
         .attr('x1', function(d){
-            return xAxis(d.artist_name) + 10;
+            return xAxis(d.artist_name) + candle_width/2;
         })
         .attr('x2', function(d){
-            return xAxis(d.artist_name) + 10;
+            return xAxis(d.artist_name) + candle_width/2;
         })
         .attr('y1', function(d){
             return yAxis(+d.min);
@@ -203,54 +205,4 @@ function createStems(g, xAxis, yAxis, data, height) {
             mouseOut(d,height);
         });    
 }
-
-
-
-/**
- * Crée des ligne SVG en utilisant les domaines X et Y spécifiés.
- *
- * @param g                     Le groupe SVG dans lequel les tiges doivent être dessinées.
- * @param xAxis                 L'échelle pour l'axe X.
- * @param yAxis                 L'échelle pour l'axe Y.
- * @param data                  Données provenant du fichier CSV.
- * @param color                 L'échelle de couleurs ayant une couleur associée aux noms des artistes.
- * @param height                La hauteur du graphique.
- *
- */
-function createImages(g, xAxis, yAxis, data, height) {
-
-    // On dessine les lignes
-    var imgs = g.selectAll("image")
-        .data(data)
-        .enter()
-        .append('g');
-
-
-    imgs
-        .append("image")
-        .attr("xlink:href",function(d){
-            return "../../python/data/" + d.artist_name + "/cropped.jpg";
-        })
-        .attr("id",function(d){
-            return cleanStr(d.artist_name);
-        })
-        .attr('x', function(d){
-            return xAxis(d.artist_name);
-        })
-        .attr('y', function(d){
-            //var offset = (+d["standard deviation"])/2.0;
-            //return yAxis(+d.average + offset);
-            return height + 10;
-        })
-        .attr('width', function(d){
-            return 40;
-        })
-        .attr('height', function(d){
-            //var offset = (+d["standard deviation"])/2.0;
-            //var diff = yAxis(+d.average - offset) - yAxis(+d.average + offset);
-            //return diff;
-            return 40;
-        });     
-}
-
 
